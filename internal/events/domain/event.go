@@ -1,4 +1,4 @@
-package Domain
+package domain
 
 import (
 	"errors"
@@ -30,7 +30,7 @@ type Event struct {
 	Organization string
 	Rating       Rating
 	Date         time.Time
-	ImageUrl     string
+	ImageURL     string
 	Capacity     int
 	Price        float64
 	PartnerID    int
