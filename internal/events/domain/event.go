@@ -1,4 +1,4 @@
-package Domain
+package domain
 
 import (
 	"errors"
@@ -10,6 +10,7 @@ var (
 	ErrEventDateFuture   = errors.New("event date must be in the future")
 	ErrEventCapacityZero = errors.New("event capacity must be greater than zero")
 	ErrEventPriceZero    = errors.New("event price must be greater than zero")
+	ErrEventNotFound     = errors.New("event not found")
 )
 
 type Rating string
@@ -30,7 +31,7 @@ type Event struct {
 	Organization string
 	Rating       Rating
 	Date         time.Time
-	ImageUrl     string
+	ImageURL     string
 	Capacity     int
 	Price        float64
 	PartnerID    int
