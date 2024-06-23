@@ -99,7 +99,7 @@ func (r *mysqlEventRepository) ListEvents() ([]domain.Event, error) {
 					ID:         ticketID.String,
 					EventID:    ticketEventID.String,
 					Spot:       spot,
-					TicketType: domain.TicketType(ticketKind.String),
+					TicketKind: domain.TicketKind(ticketKind.String),
 					Price:      ticketPrice.Float64,
 				}
 				event.Tickets = append(event.Tickets, ticket)
@@ -197,7 +197,7 @@ func (r *mysqlEventRepository) FindEventByID(eventID string) (*domain.Event, err
 					ID:         ticketID.String,
 					EventID:    ticketEventID.String,
 					Spot:       &spot,
-					TicketType: domain.TicketType(ticketKind.String),
+					TicketKind: domain.TicketKind(ticketKind.String),
 					Price:      ticketPrice.Float64,
 				}
 				event.Tickets = append(event.Tickets, ticket)
@@ -258,7 +258,7 @@ func (r *mysqlEventRepository) FindSpotByID(spotID string) (*domain.Spot, error)
 		ticket.ID = ticketID.String
 		ticket.EventID = ticketEventID.String
 		ticket.Spot = &spot
-		ticket.TicketType = domain.TicketType(ticketKind.String)
+		ticket.TicketKind = domain.TicketKind(ticketKind.String)
 		ticket.Price = ticketPrice.Float64
 		spot.TicketID = ticket.ID
 	}
@@ -282,7 +282,7 @@ func (r *mysqlEventRepository) CreateTicket(ticket *domain.Ticket) error {
 		INSERT INTO tickets (id, event_id, spot_id, ticket_kind, price)
 		VALUES (?, ?, ?, ?, ?)
 	`
-	_, err := r.db.Exec(query, ticket.ID, ticket.EventID, ticket.Spot.ID, ticket.TicketType, ticket.Price)
+	_, err := r.db.Exec(query, ticket.ID, ticket.EventID, ticket.Spot.ID, ticket.TicketKind, ticket.Price)
 	return err
 }
 
@@ -357,7 +357,7 @@ func (r *mysqlEventRepository) FindSpotByName(eventID, name string) (*domain.Spo
 		ticket.ID = ticketID.String
 		ticket.EventID = ticketEventID.String
 		ticket.Spot = &spot
-		ticket.TicketType = domain.TicketType(ticketKind.String)
+		ticket.TicketKind = domain.TicketKind(ticketKind.String)
 		ticket.Price = ticketPrice.Float64
 		spot.TicketID = ticket.ID
 	}
