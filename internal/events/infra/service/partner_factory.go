@@ -17,7 +17,7 @@ func NewPartnerFactory(partnerBaseURLs map[int]string) PartnerFactory {
 func (f *DefaultPartnerFactory) CreatePartner(partnerID int) (Partner, error) {
 	baseURL, ok := f.partnerBaseURLs[partnerID]
 	if !ok {
-		return nil, fmt.Errorf("partner with ID %d not found", partnerID)
+		return nil, fmt.Errorf("unsupported partner ID: %d", partnerID)
 	}
 
 	switch partnerID {
@@ -26,6 +26,6 @@ func (f *DefaultPartnerFactory) CreatePartner(partnerID int) (Partner, error) {
 	case 2:
 		return &Partner2{BaseURL: baseURL}, nil
 	default:
-		return nil, fmt.Errorf("partner with ID %d not found", partnerID)
+		return nil, fmt.Errorf("unsupported partner ID: %d", partnerID)
 	}
 }

@@ -53,7 +53,7 @@ func (p *Partner1) MakeReservation(req *ReservationRequest) ([]ReservationRespon
 	defer httpResp.Body.Close()
 
 	if httpResp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("unexpected status code: %d", httpResp.StatusCode)
+		return nil, fmt.Errorf("reservation failed with status code: %d", httpResp.StatusCode)
 	}
 
 	var partnerResp []Partner1ReservationResponse
@@ -69,5 +69,6 @@ func (p *Partner1) MakeReservation(req *ReservationRequest) ([]ReservationRespon
 			Status: r.Status,
 		}
 	}
+
 	return responses, nil
 }
