@@ -10,8 +10,8 @@ type TicketKind string
 var ErrTicketPriceZero = errors.New("ticket price must be greater than zero")
 
 const (
-	TicketTypeHalf TicketKind = "half" // Half-price ticket
-	TicketTypeFull TicketKind = "full" // Full-price ticket
+	TicketKindHalf TicketKind = "half" // Half-price ticket
+	TicketKindFull TicketKind = "full" // Full-price ticket
 )
 
 type Ticket struct {
@@ -42,7 +42,7 @@ func NewTicket(event *Event, spot *Spot, ticketType TicketKind) (*Ticket, error)
 
 func IsValidTicketType(ticketType TicketKind) bool {
 	switch ticketType {
-	case TicketTypeHalf, TicketTypeFull:
+	case TicketKindHalf, TicketKindFull:
 		return true
 	default:
 		return false
@@ -50,7 +50,7 @@ func IsValidTicketType(ticketType TicketKind) bool {
 }
 
 func (t *Ticket) CalculatePrice() {
-	if t.TicketKind == TicketTypeHalf {
+	if t.TicketKind == TicketKindHalf {
 		t.Price /= 2
 	}
 }
