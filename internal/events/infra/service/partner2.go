@@ -27,9 +27,15 @@ type Partner2ReservationResponse struct {
 }
 
 func (p *Partner2) MakeReservation(req *ReservationRequest) ([]ReservationResponse, error) {
+	TipoIngresso := req.TicketKind
+	if TipoIngresso == "full" {
+		TipoIngresso = "inteira"
+	} else {
+		TipoIngresso = "meia"
+	}
 	partnerReq := Partner2ReservationRequest{
 		Lugares:      req.Spots,
-		TipoIngresso: req.TicketType,
+		TipoIngresso: TipoIngresso,
 		Email:        req.Email,
 	}
 
@@ -53,7 +59,7 @@ func (p *Partner2) MakeReservation(req *ReservationRequest) ([]ReservationRespon
 	defer httpResp.Body.Close()
 
 	if httpResp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("unexpected status code: %d", httpResp.StatusCode)
+		return nil, fmt.Errorf("reservation failed with status code: %d", httpResp.StatusCode)
 	}
 
 	var partnerResp []Partner2ReservationResponse
@@ -69,5 +75,6 @@ func (p *Partner2) MakeReservation(req *ReservationRequest) ([]ReservationRespon
 			Status: r.Status,
 		}
 	}
+
 	return responses, nil
 }
